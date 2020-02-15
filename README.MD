@@ -17,9 +17,6 @@ And a movement control feature makes your character moves with respect to the fo
 ### Game UI
 Some neccessary UI and UI manager.
 
-<p style='color:#FF4D00;font-weight:bold;'>Known Issues: </p>
-
-1. UI doesn't work when the game is running
-2. test
+:warning: **Known Issues: **
 
 ## What the system dependent on?
