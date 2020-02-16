@@ -17,11 +17,11 @@ public class UIOption : MonoBehaviour, IGameUI {
     }
 
     public void TransitionIn() {
-        
+        gameObject.SetActive(true);
     }
 
     public void TransitionOut() {
-        
+        gameObject.SetActive(false);
     }
 
     void Start() {

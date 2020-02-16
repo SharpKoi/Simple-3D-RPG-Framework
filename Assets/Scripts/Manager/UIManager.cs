@@ -24,7 +24,6 @@ public class UIManager : MonoBehaviour{
         //TODO: play audio(pop up)
         //GameManager.Instance().GetAudioManager().PlaySE(AudioManager.SEPath() + "menu-popup");
         EnableUI(ui);
-        ui.TransitionIn();
     }
 
     public void ReturnBack() {
@@ -34,29 +33,29 @@ public class UIManager : MonoBehaviour{
         }
 
         IGameUI topUI = ui_Stack.Pop();
-        // topUI.TransitionOut().OnComplete(()=>DisableUI(topUI));
-        topUI.TransitionOut();
         DisableUI(topUI);
+
+        /***VERSION: DOTween***/
+        // topUI.TransitionOut().OnComplete(()=>DisableUI(topUI));
         
         //TODO: play audio(disappear)
         if(ui_Stack.Count > 0) {
             IGameUI lastUI = ui_Stack.Peek();
-
-            /***VERSION: DOTween***/
-            // EnableUI(lastUI);
-            lastUI.TransitionIn();
+            EnableUI(lastUI);
+        }else {
+            GameManager.Instance().GetMovementInput().canMove = true;
         }
     }
 
     public void CloseAllUI() {
         IGameUI topUI = ui_Stack.Peek();
-        // topUI.TransitionOut().OnComplete(()=>DisableUI(topUI));
-        topUI.TransitionOut();
-
         /***VERSION: DOTween***/
-        // DisableUI(topUI);
+        // topUI.TransitionOut().OnComplete(()=>DisableUI(topUI));
+
+        DisableUI(topUI);
 
         ui_Stack.Clear();
+        GameManager.Instance().GetMovementInput().canMove = true;
     }
 
     public void DisableUI(IGameUI ui) {

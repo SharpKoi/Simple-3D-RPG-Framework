@@ -67,6 +67,10 @@ public class GameManager : MonoBehaviour
         cursorLocked = false;
     }
 
+    public MovementInput GetMovementInput() {
+        return input;
+    }
+
     public AudioManager GetAudioManager() {
         return audioManager;
     }

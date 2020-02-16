@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponItem : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+namespace SoulBreeze {
+    public class WeaponItem : Item {
+        public bool isEquipable;
+        public int atk;
 
-    // Update is called once per frame
-    void Update()
-    {
+        public bool TryEquipe() {
+            return true;
+        }
+
+        public void OnEquipe() {
+
+        }
         
     }
 }
