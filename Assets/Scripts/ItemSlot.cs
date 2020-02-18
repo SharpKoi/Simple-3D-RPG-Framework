@@ -6,38 +6,53 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 
 namespace SoulBreeze {
+
+    // public enum SlotState {
+    //     NORMAL, 
+    //     SELECTED,
+    //     EMPTY
+    // }
+
     public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler {
         public int index;
+        public bool isSelected;
+        public bool isSelectable;
 
         [SerializeField] private Image bg;
         [SerializeField] private Image itemIcon;
-        public Color itemSelectedColor;
-        public Color itemDeselectedColor;
+
+        [Header("Normal State")]
+        public Color itemNormalColor;
+        public Color bgNormalColor;
+        
+        [Header("Selected State")]
         public Color bgSelectedColor;
-        public Color bgDeselectedColor;
+        public Color itemSelectedColor;
+        
+        [Header("Empty State")]
+        public Color itemEmptyColor;
+        public Color bgEmptyColor;
 
         void Update() {
             
         }
 
-        public void OnDeselect(BaseEventData eventData)
-        {
-            // itemIcon.CrossFadeColor(itemDeselectedColor, 0.1f, false, true);
-            // itemIcon.color = itemDeselectedColor;
-            itemIcon.DOColor(itemDeselectedColor, 0.2f);
-            // bg.CrossFadeColor(bgDeselectedColor, 0.1f, false, true);
-            // bg.color = bgDeselectedColor;
-            bg.DOColor(bgDeselectedColor, 0.2f);
+        public void OnDeselect(BaseEventData eventData) {
+            itemIcon.DOColor(itemNormalColor, 0.2f);
+            bg.DOColor(bgNormalColor, 0.2f);
+            isSelected = false;
         }
 
-        public void OnSelect(BaseEventData eventData)
-        {
-            // itemIcon.CrossFadeColor(itemSelectedColor, 0.1f, false, true);
-            // itemIcon.color = itemSelectedColor;
+        public void OnSelect(BaseEventData eventData) {
             itemIcon.DOColor(itemSelectedColor, 0.2f);
-            // bg.CrossFadeColor(bgSelectedColor, 0.1f, false, true);
-            // bg.color = bgSelectedColor;
             bg.DOColor(bgSelectedColor, 0.2f);
+            isSelected = true;
         }
+
+        // public void SetState(SlotState state) {
+        //     if(state == SlotState.EMPTY) {
+
+        //     }
+        // }
     }
 }

@@ -12,14 +12,15 @@ namespace SoulBreeze {
     {
         [SerializeField] private GameObject slotPref;   //the prefab of item slot(UI_ItemSlot->frame->back, item)
 
-        private GameObject u_content;                   //which slots be drew under
+        [SerializeField] private GameObject u_content;                   //which slots be drew under
         private List<RectTransform> u_itemSlots;        //store the slots on ui
         private int slotAmount;                         //the amount of item slots
         public float slotsDist;                         //the distance of any two slots (120)
         public int rowLength;                           //how much slots in one row (4)
 
         private Camera cam;
-        [SerializeField] private PostProcessProfile screenBlurProfile;
+        private PostProcessManager postProcessManager;
+
         [SerializeField] private Image panel_bg;
         [SerializeField] private Image magic_ring_img;
         [SerializeField] private Image goddess_img;
@@ -31,26 +32,39 @@ namespace SoulBreeze {
 
         void OnEnable() {
             cam = Camera.main;
+            postProcessManager = GameManager.Instance().GetPostProcessManager();
         }
 
         // Start is called before the first frame update
         void Start() {
-            //u_content
+            InitializeGUI();
         }
 
         // Update is called once per frame
-        void Update()
-        {
+        void Update() {
             
         }
 
-        public void DrawSlotsFrom(Inventory inventory) {
-            foreach(Item item in inventory.GetItems()) {
-                
+        public void InitializeGUI() {
+            //set the basic slot requirements
+            int row_num = 100/4;
+            for(int i = 0; i < row_num; i++) {
+                for(int j = 0; j < rowLength; j++) {
+                    GameObject slot = GameObject.Instantiate(slotPref, u_content.transform);
+                    Vector2 slotPos = new Vector2(slotsDist * j, - slotsDist * i);
+                    slot.GetComponent<RectTransform>().anchoredPosition = slotPos;
+                }
             }
         }
 
-        public void SelectSlotAt(int index) {
+        public void DrawItemSlotsFrom(Inventory inventory) {
+            foreach(Item item in inventory.GetItems()) {
+                
+
+            }
+        }
+
+        public void ShowItemPreview(int index) {
             
         }
 
@@ -61,15 +75,13 @@ namespace SoulBreeze {
         public void TransitionIn() {
             gameObject.SetActive(true);
             PostProcessVolume volume = cam.GetComponent<PostProcessVolume>();
-            volume.profile = screenBlurProfile;
+            volume.profile = postProcessManager.screenBlurProfile;
             StartCoroutine(TransitionInEffect());
         }
 
         IEnumerator TransitionInEffect() {
             cam.gameObject.GetComponent<PostProcessVolume>().weight = 1;
-            DepthOfField blur = null;
-            screenBlurProfile.TryGetSettings(out blur);
-            DOTween.To(()=>blur.aperture.value, x=>blur.aperture.value = x, 6, 1f);
+            postProcessManager.ScreenBlur(true);
             
             panel_bg.DOFade(150.00f/255.00f, 1f);
 
@@ -100,9 +112,7 @@ namespace SoulBreeze {
             itemPreview.GetComponent<RectTransform>().DOAnchorPosX(700f, 1f);
             itemContent.GetComponent<RectTransform>().DOAnchorPosX(1360, 1f);
 
-            DepthOfField blur = null;
-            screenBlurProfile.TryGetSettings(out blur);
-            DOTween.To(()=>blur.aperture.value, x=>blur.aperture.value = x, 15, 1f);
+            postProcessManager.ScreenBlur(false);
             cam.GetComponent<PostProcessVolume>().weight = 0;
             gameObject.SetActive(false);
         }
