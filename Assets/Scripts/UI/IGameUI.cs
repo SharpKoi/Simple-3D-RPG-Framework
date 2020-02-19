@@ -8,5 +8,5 @@ public interface IGameUI {
 
     void TransitionIn();
 
-    TweenerCore<Color, Color, ColorOptions> TransitionOut();
+    void TransitionOut();
 }

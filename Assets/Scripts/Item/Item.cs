@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SoulBreeze {
     public abstract class Item {
@@ -10,7 +11,8 @@ namespace SoulBreeze {
             QUEST
         }
 
-        public string name;
+        public readonly int iconID; 
+         public string name;
         public string nickname;
         public ItemType type;
         public string description;
@@ -18,7 +20,36 @@ namespace SoulBreeze {
         public int maxStackAmount;
         public bool isAbandonable;
 
+        public static Dictionary<int, string> iconDictionary;
+
+        //Item icon id
+        public readonly static int ICON_SWORD_1H = 1;
+        public readonly static int ICON_SWORD_2H = 2;
+        public readonly static int ICON_STAFF = 3;
+        public readonly static int ICON_SHIELD = 4;
+        public readonly static int ICON_POTION = 5;
+        public readonly static int ICON_SCROLL = 6;
+        public readonly static int ICON_BOOK = 7;
+
+        public readonly static string ICON_FILE_PATH = "UI/ItemIcon/";
+
         public CompoundTag metadata;
+
+        public static void Init() {
+            iconDictionary = new Dictionary<int, string>();
+            iconDictionary.Add(ICON_SWORD_1H, "");
+            iconDictionary.Add(ICON_SWORD_2H, "");
+            iconDictionary.Add(ICON_STAFF, "T_8_staff_");
+            iconDictionary.Add(ICON_SHIELD, "");
+            iconDictionary.Add(ICON_POTION, "");
+            iconDictionary.Add(ICON_SCROLL, "");
+        }
+
+        public Sprite GetIcon() {
+            string iconName = null;
+            iconDictionary.TryGetValue(iconID, out iconName);
+            return Resources.Load(ICON_FILE_PATH + iconName) as Sprite;
+        }
 
         public override bool Equals(object obj) {
             if(obj is Item) {
@@ -30,7 +61,6 @@ namespace SoulBreeze {
                         return true;
                 }
             }
-
             return false;
         }
      }

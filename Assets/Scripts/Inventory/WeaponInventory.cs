@@ -5,5 +5,9 @@ using UnityEngine;
 namespace SoulBreeze {
     public class WeaponInventory : Inventory {
         
+        public WeaponInventory(int maxSlots) {
+            this.maxSlots = maxSlots;
+        }
+
     }
 }

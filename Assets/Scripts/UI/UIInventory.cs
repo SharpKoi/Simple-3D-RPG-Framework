@@ -13,7 +13,7 @@ namespace SoulBreeze {
         [SerializeField] private GameObject slotPref;   //the prefab of item slot(UI_ItemSlot->frame->back, item)
 
         [SerializeField] private GameObject u_content;                   //which slots be drew under
-        private List<RectTransform> u_itemSlots;        //store the slots on ui
+        private List<ItemSlot> u_itemSlots;        //store the slots on ui
         private int slotAmount;                         //the amount of item slots
         public float slotsDist;                         //the distance of any two slots (120)
         public int rowLength;                           //how much slots in one row (4)
@@ -53,14 +53,16 @@ namespace SoulBreeze {
                     GameObject slot = GameObject.Instantiate(slotPref, u_content.transform);
                     Vector2 slotPos = new Vector2(slotsDist * j, - slotsDist * i);
                     slot.GetComponent<RectTransform>().anchoredPosition = slotPos;
+                    u_itemSlots.Add(slot.GetComponent<ItemSlot>());
                 }
             }
         }
 
         public void DrawItemSlotsFrom(Inventory inventory) {
-            foreach(Item item in inventory.GetItems()) {
-                
-
+            List<Item> itemList = inventory.GetItems();
+            for(int i = 0; i < itemList.Count; i++) {
+                u_itemSlots[i].SetItemIcon(itemList[i].GetIcon());
+                u_itemSlots[i].SetState(SlotState.NORMAL);
             }
         }
 

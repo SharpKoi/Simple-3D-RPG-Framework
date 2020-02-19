@@ -4,22 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 
 namespace SoulBreeze {
 
-    // public enum SlotState {
-    //     NORMAL, 
-    //     SELECTED,
-    //     EMPTY
-    // }
+    public enum SlotState {
+        NORMAL, 
+        SELECTED,
+        EMPTY
+    }
 
     public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler {
         public int index;
+        public SlotState state;
         public bool isSelected;
         public bool isSelectable;
 
-        [SerializeField] private Image bg;
-        [SerializeField] private Image itemIcon;
+        [SerializeField] private Image img_bg;
+        [SerializeField] private Image img_itemIcon;
+        [SerializeField] private TMP_Text t_amount;
 
         [Header("Normal State")]
         public Color itemNormalColor;
@@ -33,26 +36,47 @@ namespace SoulBreeze {
         public Color itemEmptyColor;
         public Color bgEmptyColor;
 
-        void Update() {
-            
+        public void SetItemIcon(Sprite icon) {
+            img_itemIcon.sprite = icon;
         }
 
         public void OnDeselect(BaseEventData eventData) {
-            itemIcon.DOColor(itemNormalColor, 0.2f);
-            bg.DOColor(bgNormalColor, 0.2f);
+            if(state == SlotState.EMPTY) return;
+
+            img_itemIcon.DOColor(itemNormalColor, 0.2f);
+            img_bg.DOColor(bgNormalColor, 0.2f);
             isSelected = false;
         }
 
         public void OnSelect(BaseEventData eventData) {
-            itemIcon.DOColor(itemSelectedColor, 0.2f);
-            bg.DOColor(bgSelectedColor, 0.2f);
+            if(state == SlotState.EMPTY) return;
+
+            img_itemIcon.DOColor(itemSelectedColor, 0.2f);
+            img_bg.DOColor(bgSelectedColor, 0.2f);
             isSelected = true;
         }
 
-        // public void SetState(SlotState state) {
-        //     if(state == SlotState.EMPTY) {
-
-        //     }
-        // }
+        public void SetState(SlotState state) {
+            switch(state) {
+                case SlotState.EMPTY:
+                    state = SlotState.EMPTY;
+                    img_bg.color = bgEmptyColor;
+                    img_itemIcon.gameObject.SetActive(false);
+                    t_amount.gameObject.SetActive(false);
+                    break;
+                case SlotState.NORMAL:
+                    state = SlotState.NORMAL;
+                    img_bg.color = bgNormalColor;
+                    img_itemIcon.gameObject.SetActive(true);
+                    img_itemIcon.color = itemNormalColor;
+                    t_amount.gameObject.SetActive(true);
+                    break;
+                case SlotState.SELECTED:
+                    state = SlotState.SELECTED;
+                    img_bg.color = bgSelectedColor;
+                    img_itemIcon.color = itemSelectedColor;
+                    break;
+            }
+        }
     }
 }
