@@ -39,35 +39,24 @@ public class InventoryUI : MonoBehaviour, IGameUI
          
     }
 
-    public GameObject GetGameObject() {
+    public GameObject GetGameObject()
+    {
         return gameObject;
     }
 
-    public void TransitionIn() {
+    public void TransitionIn()
+    {
         
+        return;
     }
 
-    public void TransitionOut() {
-        
-    }
-
-    public void OnAbilityButtonClicked() {
-
-    }
-
-    public void OnStatusButtonClicked() {
-
-    }
-
-    public void OnInventoryButtonClicked() {
-        
+    public TweenerCore<Color, Color, ColorOptions> TransitionOut()
+    {
+        return null;
     }
 
     public void OnOptionButtonClicked() {
+        Debug.Log("option");
         GameManager.Instance().GetUIManager().SwitchUI(optionUI);
-    }
-
-    public void OnQuitButtonClicked() {
-        GameManager.Instance().GetUIManager().ReturnBack();
     }
 }

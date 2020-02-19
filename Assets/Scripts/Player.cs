@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace SoulBreeze {
     public class Player : MonoBehaviour {
+
+        private MovementInput input;
+        
+
         void Start() {
             
         }

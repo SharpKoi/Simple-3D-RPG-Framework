@@ -44,16 +44,10 @@ public class MovementInput : MonoBehaviour {
     [Range(0, 1f)]
     public float StopAnimTime = 0.15f;
 
+
     public float verticalVel;			//set public to debug
     private Vector3 moveVector;
     public bool canMove;			//set public to debug
-
-	/*Animator Hash*/
-	public readonly int IDLE_HASH = Animator.StringToHash("Idle");
-	public readonly int RUN_HASH = Animator.StringToHash("Run");
-	public readonly int AIRBORNE_HASH = Animator.StringToHash("AirborneSM");
-	public readonly int LANDING_HASH = Animator.StringToHash("Landing");
-	public readonly int MELEECOMBAT_HASH = Animator.StringToHash("MeleeCombatSM");
 
 	// Use this for initialization
 	void Start () {
@@ -64,19 +58,25 @@ public class MovementInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		AnimatorStateInfo currentStateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+		anim.SetBool("Grounded", CheckGrounded());
+		
         if (!canMove) {
 			Speed = 0;
 			anim.SetFloat("Speed", Speed);
 			return;
 		}
 
-        //Physically move player
-		if (Speed > moveThreshold) {
-			//anim.SetFloat ("InputMagnitude", Speed, StartAnimTime, Time.deltaTime);
-			PlayerMoveAndRotation ();
-		} else if (Speed < moveThreshold) {
-			//anim.SetFloat ("InputMagnitude", Speed, StopAnimTime, Time.deltaTime);
+		if(Input.GetButtonDown("Jump")) {
+			JumpUp();
 		}
+
+		if(currentStateInfo.shortNameHash == Animator.StringToHash("Idle") || currentStateInfo.shortNameHash == Animator.StringToHash("Run")) {
+			
+		}
+
+        InputMagnitude ();
 
 		//Because of the big value of slopOffset, the charactor will seems to be floating on flat ground.
 		//To fix this, we slightly decrease the distance frome charactor to ground at each frame.
@@ -95,20 +95,6 @@ public class MovementInput : MonoBehaviour {
 		
 		moveVector = new Vector3 (0, verticalVel, 0);
 		controller.Move (moveVector);
-	}
-
-	void Update() {
-		AnimatorStateInfo currentStateInfo = anim.GetCurrentAnimatorStateInfo(0);
-		
-		if(Input.GetButtonDown("Jump")) {
-			if(isGrounded && anim.GetBool("Grounded")) {
-				if(currentStateInfo.shortNameHash == IDLE_HASH || currentStateInfo.shortNameHash == RUN_HASH)
-					JumpUp();
-			}
-		}
-		anim.SetBool("Grounded", CheckGrounded());
-
-		InputMagnitude ();
 	}
 
 	void PlayerMoveAndRotation() {
@@ -155,16 +141,18 @@ public class MovementInput : MonoBehaviour {
 		//double foot line raycast
 		bool feetRayTest = Physics.Raycast(left_foot.position, Vector3.down, slopeOffset) || 
 						Physics.Raycast(right_foot.position, Vector3.down, slopeOffset, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-		bool rayTest = Physics.Raycast(grl.position, Vector3.down, slopeOffset, Physics.AllLayers, QueryTriggerInteraction.Ignore); 
-
+		bool rayTest = Physics.Raycast(grl.position, Vector3.down, slopeOffset, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+		
 		return (isGrounded = (controllerTest || feetRayTest || rayTest));
 	}
 	
 	public void JumpUp() {
-		verticalVel = 0;							//when player is on ground, ignore the extra vertical velocity.
-		anim.SetFloat("VerticalWeight", 0);
-		verticalVel += jumpForce;
-		isGrounded = false;
+		if(isGrounded && anim.GetBool("Grounded")) {
+			verticalVel = 0;							//when player is on ground, ignore the extra vertical velocity.
+			anim.SetFloat("VerticalWeight", 0);
+			verticalVel += jumpForce;
+			isGrounded = false;
+		}
 	}
 
     void InputMagnitude() {
@@ -178,5 +166,13 @@ public class MovementInput : MonoBehaviour {
 		//Calculate the Input Magnitude
 		Speed = Mathf.Clamp01(new Vector2(InputX, InputZ).sqrMagnitude);
 		anim.SetFloat("Speed", Speed);
+
+		//Physically move player
+		if (Speed > moveThreshold) {
+			//anim.SetFloat ("InputMagnitude", Speed, StartAnimTime, Time.deltaTime);
+			PlayerMoveAndRotation ();
+		} else if (Speed < moveThreshold) {
+			//anim.SetFloat ("InputMagnitude", Speed, StopAnimTime, Time.deltaTime);
+		}
 	}
 }

@@ -32,11 +32,11 @@ public class UIMenu : MonoBehaviour, IGameUI
     }
 
     public void TransitionIn() {
-        
+        bg.DOFade((255.00f/255.00f), 0.6f);
     }
 
-    public void TransitionOut() {
-        
+    public TweenerCore<Color, Color, ColorOptions> TransitionOut() {
+        return bg.DOFade(0, 0.6f);
     }
 
     public void OnOptionButtonClicked() {
