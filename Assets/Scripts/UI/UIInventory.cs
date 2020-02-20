@@ -4,6 +4,7 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 using DG.Tweening;
 
@@ -14,6 +15,7 @@ namespace SoulBreeze {
 
         [SerializeField] private GameObject u_content;                   //which slots be drew under
         private List<ItemSlot> u_itemSlots;        //store the slots on ui
+        private Inventory currentInventory;
         private int slotAmount;                         //the amount of item slots
         public float slotsDist;                         //the distance of any two slots (120)
         public int rowLength;                           //how much slots in one row (4)
@@ -24,11 +26,24 @@ namespace SoulBreeze {
         [SerializeField] private Image panel_bg;
         [SerializeField] private Image magic_ring_img;
         [SerializeField] private Image goddess_img;
+
+        [Header("Side Option Tags")]
         [SerializeField] private GameObject sideOptionTags;
+
+        [Header("Item Preview")]
         [SerializeField] private GameObject itemPreview;
+        [SerializeField] private TMP_Text t_itemName;
+        [SerializeField] private TMP_Text t_itemType;
+        [SerializeField] private TMP_Text t_itemDetail;
+
+        [Header("Item Content")]
         [SerializeField] private GameObject itemContent;
 
         public UIOption optionUI;
+
+        void Awake() {
+            u_itemSlots = new List<ItemSlot>();
+        }
 
         void OnEnable() {
             cam = Camera.main;
@@ -47,13 +62,19 @@ namespace SoulBreeze {
 
         public void InitializeGUI() {
             //set the basic slot requirements
+            int index = -1;
             int row_num = 100/4;
             for(int i = 0; i < row_num; i++) {
                 for(int j = 0; j < rowLength; j++) {
+                    index ++;
                     GameObject slot = GameObject.Instantiate(slotPref, u_content.transform);
                     Vector2 slotPos = new Vector2(slotsDist * j, - slotsDist * i);
                     slot.GetComponent<RectTransform>().anchoredPosition = slotPos;
-                    u_itemSlots.Add(slot.GetComponent<ItemSlot>());
+
+                    ItemSlot itemSlot = slot.GetComponentInChildren<ItemSlot>();
+                    itemSlot.index = index;
+                    itemSlot.OnSelectEvent.AddListener(() => ShowItemPreview(index));
+                    u_itemSlots.Add(itemSlot);
                 }
             }
         }
@@ -64,10 +85,14 @@ namespace SoulBreeze {
                 u_itemSlots[i].SetItemIcon(itemList[i].GetIcon());
                 u_itemSlots[i].SetState(SlotState.NORMAL);
             }
+            currentInventory = inventory;
         }
 
         public void ShowItemPreview(int index) {
-            
+            Item item = currentInventory.GetItem(index);
+            t_itemName.SetText(item.name);
+            t_itemType.SetText(item.GetTypeName());
+            t_itemDetail.SetText(item.description);
         }
 
         public GameObject GetGameObject() {

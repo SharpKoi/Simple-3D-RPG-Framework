@@ -7,10 +7,12 @@ namespace SoulBreeze {
     {
         public List<Inventory> inventories;
 
+        void Awake() {
+            inventories = new List<Inventory>();
+        }
 
         // Start is called before the first frame update
         void Start() {
-            inventories = new List<Inventory>();
             inventories.Add(new WeaponInventory(100));
             inventories[0].AddItem(new ItemEllenStaff());
         }

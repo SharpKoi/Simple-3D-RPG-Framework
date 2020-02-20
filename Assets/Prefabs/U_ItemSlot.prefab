@@ -362,11 +362,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  state: 2
   isSelected: 0
-  isSelectable: 0
+  isSelectable: 1
   img_bg: {fileID: 5037092950785519919}
   img_itemIcon: {fileID: 5037092950785519919}
   t_amount: {fileID: 4767198235834608126}
+  OnSelectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeselectEvent:
+    m_PersistentCalls:
+      m_Calls: []
   itemNormalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   bgNormalColor: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 0.39215687}
   bgSelectedColor: {r: 0.8156863, g: 0.8156863, b: 0.8156863, a: 0.5882353}
@@ -431,7 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20784314, g: 0.20784314, b: 0.20784314, a: 0.39215687}
+  m_Color: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 0.5882353}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

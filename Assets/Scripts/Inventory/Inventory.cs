@@ -7,6 +7,7 @@ namespace SoulBreeze {
 
         private List<Item> itemList = new List<Item>();
         public int maxSlots;
+        public InventoryHolder owner;
 
         public List<Item> GetItems() {
             return itemList;
@@ -15,8 +16,6 @@ namespace SoulBreeze {
         public Item GetItem(int index) {
             return itemList[index];
         }
-
-        
 
         public bool AddItem(Item item) {
             if(itemList.Contains(item)) {

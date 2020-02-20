@@ -12,7 +12,7 @@ namespace SoulBreeze {
         }
 
         public readonly int iconID; 
-         public string name;
+        protected string name;
         public string nickname;
         public ItemType type;
         public string description;
@@ -35,6 +35,14 @@ namespace SoulBreeze {
 
         public CompoundTag metadata;
 
+        public Item(string name, ItemType type, int iconID, string nickname, string description){
+            this.name = name;
+            this.type = type;
+            this.iconID = iconID;
+            this.nickname = nickname;
+            this.description = description;
+        }
+
         public static void Init() {
             iconDictionary = new Dictionary<int, string>();
             iconDictionary.Add(ICON_SWORD_1H, "");
@@ -45,10 +53,24 @@ namespace SoulBreeze {
             iconDictionary.Add(ICON_SCROLL, "");
         }
 
+        public abstract string GetName();
+
         public Sprite GetIcon() {
             string iconName = null;
             iconDictionary.TryGetValue(iconID, out iconName);
             return Resources.Load(ICON_FILE_PATH + iconName) as Sprite;
+        }
+
+        public string GetTypeName() {
+            switch(type) {
+                case ItemType.COMSUMABLE:
+                    return "消費アイテム";
+                case ItemType.EQUIPMENT:
+                    return "装備アイテム";
+                case ItemType.QUEST:
+                    return "任務アイテム";
+                default: return "";
+            }
         }
 
         public override bool Equals(object obj) {
