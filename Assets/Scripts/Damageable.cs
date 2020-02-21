@@ -8,14 +8,14 @@ namespace SoulBreeze {
     public partial class Damageable : MonoBehaviour {
         public int maxHealthPoints;             //the max hp
         public int currentHealthPoints;         //the current hp
-        public float invulnerabiltyTime;        //the invulnerable time
+         public float invulnerabiltyTime;        //the invulnerable time
         public bool isInvulnerable;             //whether the game object is invulnerable
         public Vector3 spawnPosition;           //where the game object spawn at
 
         public UnityEvent OnDamaged, OnDeath, OnHitInInvulnerable, OnBecomeVulnerable, OnRespwan;
         private float damageInterval;           //the time since last damaged
         System.Action schedule;                 //to avoid race condition when objects kill each other at the same time; 
-
+ 
         public List<IMessageReceiver> onDamageMessageReceivers;
 
         public List<IMessageReceiver> onRespawnMessageReceivers;

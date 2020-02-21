@@ -14,7 +14,7 @@ namespace SoulBreeze {
         // Start is called before the first frame update
         void Start() {
             inventories.Add(new WeaponInventory(100));
-            inventories[0].AddItem(new ItemEllenStaff());
+            inventories[0].AddItem(WeaponItem.GetWeaponItem(WeaponItem.ID_ELLEN_STAFF));
         }
 
         // Update is called once per frame

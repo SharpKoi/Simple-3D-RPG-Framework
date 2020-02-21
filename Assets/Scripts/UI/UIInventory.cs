@@ -90,7 +90,7 @@ namespace SoulBreeze {
 
         public void ShowItemPreview(int index) {
             Item item = currentInventory.GetItem(index);
-            t_itemName.SetText(item.name);
+            t_itemName.SetText(item.GetName());
             t_itemType.SetText(item.GetTypeName());
             t_itemDetail.SetText(item.description);
         }
