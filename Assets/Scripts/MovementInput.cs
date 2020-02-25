@@ -49,11 +49,15 @@ public class MovementInput : MonoBehaviour {
     public bool canMove;			//set public to debug
 
 	/*Animator Hash*/
-	public readonly int IDLE_HASH = Animator.StringToHash("Idle");
-	public readonly int RUN_HASH = Animator.StringToHash("Run");
-	public readonly int AIRBORNE_HASH = Animator.StringToHash("AirborneSM");
-	public readonly int LANDING_HASH = Animator.StringToHash("Landing");
-	public readonly int MELEECOMBAT_HASH = Animator.StringToHash("MeleeCombatSM");
+	public readonly int STATE_IDLE_HASH = Animator.StringToHash("Idle");
+	public readonly int STATE_RUN_HASH = Animator.StringToHash("Run");
+	public readonly int STATE_AIRBORNE_HASH = Animator.StringToHash("AirborneSM");
+	public readonly int STATE_LANDING_HASH = Animator.StringToHash("Landing");
+	public readonly int STATE_MELEECOMBAT_HASH = Animator.StringToHash("MeleeCombatSM");
+
+	public readonly int VAR_MELEEATTACK_HASH = Animator.StringToHash("MeleeAttack");
+	public readonly int VAR_COMBOSTATETIME_HASH = Animator.StringToHash("ComboStateTime");
+	public readonly int VAR_VERTICALWEIGHT_HASH = Animator.StringToHash("VerticalWeight");
 
 	// Use this for initialization
 	void Start () {
@@ -102,14 +106,18 @@ public class MovementInput : MonoBehaviour {
 		
 		if(Input.GetButtonDown("Jump")) {
 			if(isGrounded && anim.GetBool("Grounded")) {
-				if(currentStateInfo.shortNameHash == IDLE_HASH || currentStateInfo.shortNameHash == RUN_HASH)
+				if(currentStateInfo.shortNameHash == STATE_IDLE_HASH || currentStateInfo.shortNameHash == STATE_RUN_HASH)
 					JumpUp();
 			}
 		}
 
+		anim.ResetTrigger(VAR_MELEEATTACK_HASH);
+		anim.SetFloat(VAR_COMBOSTATETIME_HASH, Mathf.Repeat(currentStateInfo.normalizedTime, 1f));
+
 		if(Input.GetButtonDown("Attack")) {
-			
+			anim.SetTrigger(VAR_MELEEATTACK_HASH);
 		}
+		
 		anim.SetBool("Grounded", CheckGrounded());
 
 		InputMagnitude ();

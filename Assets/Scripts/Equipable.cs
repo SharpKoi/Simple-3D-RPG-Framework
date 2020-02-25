@@ -9,6 +9,12 @@ namespace SoulBreeze {
         //將裝備物品穿戴在身上各個部位
         //雙手 雙腳 上身 下身 頭部
 
+        private GameObject _weapon;
+        public GameObject weapon
+        {
+            get {return _weapon;}
+        }
+
         public bool TryEquipe(Item equipment) {
             return TryEquipe(equipment, Vector3.zero);
         }
@@ -17,10 +23,10 @@ namespace SoulBreeze {
             if(equipment.type != Item.ItemType.EQUIPMENT) return false;
 
             if(equipment is WeaponItem) {
-                WeaponItem weapon = equipment as WeaponItem;
-                GameObject _weaponObj = weapon.GetWeaponObject();
-                GameObject weaponObject = GameObject.Instantiate(_weaponObj, equipPosition);
-                weaponObject.transform.position = offset;
+                WeaponItem weaponItem = equipment as WeaponItem;
+                GameObject weaponObj = weaponItem.GetWeaponObject();
+                _weapon = GameObject.Instantiate(weaponObj, equipPosition);
+                _weapon.transform.position = offset;
             }
             return true;
         }
