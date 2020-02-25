@@ -106,6 +106,10 @@ public class MovementInput : MonoBehaviour {
 					JumpUp();
 			}
 		}
+
+		if(Input.GetButtonDown("Attack")) {
+			
+		}
 		anim.SetBool("Grounded", CheckGrounded());
 
 		InputMagnitude ();

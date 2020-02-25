@@ -9,6 +9,10 @@ namespace SoulBreeze {
         public int maxSlots;
         public InventoryHolder owner;
 
+        public Inventory(int maxSlots) {
+            this.maxSlots = maxSlots;
+        }
+
         public List<Item> GetItems() {
             return itemList;
         }
@@ -17,19 +21,46 @@ namespace SoulBreeze {
             return itemList[index];
         }
 
-        public bool AddItem(Item item) {
+        public bool CanAccept(Item item) {
             if(itemList.Contains(item)) {
-                Item targetSlot = itemList.Find(x=>x.Equals(item));
-                if(targetSlot.amount < targetSlot.maxStackAmount) {
-                    targetSlot.amount += 1;
-                    return true;
+                for(int i = 0; i < itemList.Count; i++) {
+                    Item target = itemList[i];
+                    if(target.Equals(item) && (target.amount < target.maxStackAmount)) {
+                        int remain = target.maxStackAmount - target.amount;
+                        item.amount -= Mathf.Min(item.amount, remain);
+                        if(item.amount <= 0) return true;
+                    }
                 }
             }
 
-            if(itemList.Count > maxSlots) return false;
+            int neededSlotsNum = item.amount / item.maxStackAmount;
 
-            itemList.Add(item);
-            return true;
+            if(maxSlots - itemList.Count > neededSlotsNum) {
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        public void AddItem(Item item) {
+            if(itemList.Contains(item)) {
+                for(int i = 0; i < itemList.Count; i++) {
+                    Item target = itemList[i];
+                    if(target.Equals(item) && (target.amount < target.maxStackAmount)) {
+                        int moveCount = Mathf.Min(item.amount, target.maxStackAmount - target.amount);
+                        item.amount -= moveCount;
+                        target.amount += moveCount;
+                        if(item.amount <= 0) return;
+                    }
+                }
+            }
+
+            while(item.amount > 0) {
+                Item itemStack = item.DeepCopyByExpressionTree();
+                itemStack.amount = Mathf.Min(item.amount, item.maxStackAmount);
+                item.amount -= itemStack.amount;
+                itemList.Add(item);
+            }
         }
     }
 }

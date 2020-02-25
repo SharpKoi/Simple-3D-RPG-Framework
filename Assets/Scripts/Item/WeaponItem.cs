@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace SoulBreeze {
     public class WeaponItem : Item {
@@ -24,19 +25,41 @@ namespace SoulBreeze {
             return registeredWeapons[weaponID];
         }
 
-        public string objectPreferencePath;
+        public string objectAddress;
+        private GameObject weaponObject;
+        private bool isLoaded = false;
 
-        public bool isEquipable;
+        private bool isEquipable;
         public int atk;
 
         public WeaponItem(string name, ItemType type, int iconID, string nickname, string description)
-         : base(name, type, iconID, nickname, description){}
+         : base(name, type, iconID, nickname, description){
+             this.objectAddress = name;
+             LoadWeaponObject();
+        }
 
         public WeaponItem(string name, ItemType type, int iconID, string nickname, string description, 
             string objPrefPath, int atk)
          : base(name, type, iconID, nickname, description) {
-                this.objectPreferencePath = objPrefPath;
+                this.objectAddress = objPrefPath;
+                LoadWeaponObject();
                 this.atk = atk;
+        }
+
+        public void LoadWeaponObject() {
+            if(weaponObject == null) {
+                // AsyncOperationHandle<GameObject> res;
+                Addressables.LoadAssetAsync<GameObject>(objectAddress).Completed += 
+                    (res=> {weaponObject = res.Result; isLoaded = true;});
+            }
+        }
+
+        public GameObject GetWeaponObject() {
+            return weaponObject;
+        }
+
+        public bool IsEquipable() {
+            return isEquipable && isLoaded && weaponObject != null;
         }
 
         // public bool TryEquipeOn() {

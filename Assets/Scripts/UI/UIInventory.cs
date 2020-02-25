@@ -15,6 +15,8 @@ namespace SoulBreeze {
 
         [SerializeField] private GameObject u_content;                   //which slots be drew under
         private List<ItemSlot> u_itemSlots;        //store the slots on ui
+
+        [SerializeField] private InventoryHolder viewer;
         private Inventory currentInventory;
         private int slotAmount;                         //the amount of item slots
         public float slotsDist;                         //the distance of any two slots (120)
@@ -23,9 +25,9 @@ namespace SoulBreeze {
         private Camera cam;
         private PostProcessManager postProcessManager;
 
-        [SerializeField] private Image panel_bg;
-        [SerializeField] private Image magic_ring_img;
-        [SerializeField] private Image goddess_img;
+        [SerializeField] private Image panel_bg = null;
+        [SerializeField] private Image magic_ring_img = null;
+        [SerializeField] private Image goddess_img = null;
 
         [Header("Side Option Tags")]
         [SerializeField] private GameObject sideOptionTags;

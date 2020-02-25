@@ -2,17 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConsumableInventory : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+namespace SoulBreeze {
+    public class ConsumableInventory : Inventory {
+        public ConsumableInventory(int maxSlots) : base(maxSlots) {}
     }
 }

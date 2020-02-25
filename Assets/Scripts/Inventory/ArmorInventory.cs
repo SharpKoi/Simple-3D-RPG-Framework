@@ -4,6 +4,6 @@ using UnityEngine;
 
 namespace SoulBreeze {
     public class ArmorInventory : Inventory {
-        
+        public ArmorInventory(int maxSlots) : base(maxSlots) {}
     }
 }
