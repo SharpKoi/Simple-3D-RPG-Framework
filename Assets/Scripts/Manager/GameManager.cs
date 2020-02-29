@@ -50,10 +50,12 @@ namespace SoulBreeze {
                     uiManager.SwitchUI(menuUI as IGameUI);
                     FreeCursor();
                     input.canMove = false;
+                    input.inputBlock = true;
                 }else {
                     uiManager.CloseAllUI();
                     LockCursor();
                     input.canMove = true;
+                    input.inputBlock = false;
                 }
             }
         }

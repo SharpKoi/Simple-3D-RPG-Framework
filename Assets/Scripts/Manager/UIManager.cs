@@ -14,8 +14,7 @@ namespace SoulBreeze {
             ui_Stack = new Stack<IGameUI>();
         }
 
-        void Update()
-        {
+        void Update() {
             
         }
 

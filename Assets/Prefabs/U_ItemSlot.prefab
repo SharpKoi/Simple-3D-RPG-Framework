@@ -366,7 +366,7 @@ MonoBehaviour:
   isSelected: 0
   isSelectable: 1
   img_bg: {fileID: 5037092950785519919}
-  img_itemIcon: {fileID: 5037092950785519919}
+  img_itemIcon: {fileID: 1784285723}
   t_amount: {fileID: 4767198235834608126}
   OnSelectEvent:
     m_PersistentCalls:
@@ -374,10 +374,10 @@ MonoBehaviour:
   OnDeselectEvent:
     m_PersistentCalls:
       m_Calls: []
-  itemNormalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
-  bgNormalColor: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 0.39215687}
-  bgSelectedColor: {r: 0.8156863, g: 0.8156863, b: 0.8156863, a: 0.5882353}
+  itemNormalColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.39215687}
+  bgNormalColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 0.39215687}
   itemSelectedColor: {r: 1, g: 1, b: 1, a: 0.5882353}
+  bgSelectedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.5882353}
   itemEmptyColor: {r: 1, g: 1, b: 1, a: 0}
   bgEmptyColor: {r: 0.20784314, g: 0.20784314, b: 0.20784314, a: 0.39215687}
 --- !u!1 &5037092950785519917

@@ -326,6 +326,7 @@ GameObject:
   - component: {fileID: 8569267865556506193}
   - component: {fileID: 5879020387390541414}
   - component: {fileID: 4634197956721564128}
+  - component: {fileID: 8546335168031113142}
   m_Layer: 0
   m_Name: SamplePlayer
   m_TagString: Untagged
@@ -421,11 +422,8 @@ MonoBehaviour:
   left_foot: {fileID: 9143077803263364916}
   right_foot: {fileID: 1491280061263716568}
   grl: {fileID: 3954353366374184741}
-  HorizontalAnimSmoothTime: 0.2
-  VerticalAnimTime: 0.2
-  StartAnimTime: 0.3
-  StopAnimTime: 0.15
   verticalVel: 0
+  inputBlock: 0
   canMove: 1
 --- !u!114 &4634197956721564128
 MonoBehaviour:
@@ -439,6 +437,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314f3c4e0e1538948a516c096bc6f736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8546335168031113142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969151114021259364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce704937e854654791370e14f58a931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPosition: {fileID: 6681788089613397711}
 --- !u!1 &1975499441990564865
 GameObject:
   m_ObjectHideFlags: 0

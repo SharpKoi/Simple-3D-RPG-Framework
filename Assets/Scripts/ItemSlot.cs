@@ -33,8 +33,8 @@ namespace SoulBreeze {
         public Color bgNormalColor;
         
         [Header("Selected State")]
-        public Color bgSelectedColor;
         public Color itemSelectedColor;
+        public Color bgSelectedColor;
         
         [Header("Empty State")]
         public Color itemEmptyColor;
@@ -67,22 +67,20 @@ namespace SoulBreeze {
         }
 
         public void SetState(SlotState state) {
+            this.state = state;
             switch(state) {
                 case SlotState.EMPTY:
-                    state = SlotState.EMPTY;
                     img_bg.color = bgEmptyColor;
                     img_itemIcon.gameObject.SetActive(false);
                     t_amount.gameObject.SetActive(false);
                     break;
                 case SlotState.NORMAL:
-                    state = SlotState.NORMAL;
                     img_bg.color = bgNormalColor;
                     img_itemIcon.gameObject.SetActive(true);
                     img_itemIcon.color = itemNormalColor;
                     t_amount.gameObject.SetActive(true);
                     break;
                 case SlotState.SELECTED:
-                    state = SlotState.SELECTED;
                     img_bg.color = bgSelectedColor;
                     img_itemIcon.color = itemSelectedColor;
                     break;

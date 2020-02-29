@@ -51,6 +51,8 @@ namespace SoulBreeze {
             iconDictionary.Add(ICON_SHIELD, "");
             iconDictionary.Add(ICON_POTION, "");
             iconDictionary.Add(ICON_SCROLL, "");
+            
+            WeaponItem.RegisterAll();
         }
 
         public abstract string GetName();
@@ -58,17 +60,17 @@ namespace SoulBreeze {
         public Sprite GetIcon() {
             string iconName = null;
             iconDictionary.TryGetValue(iconID, out iconName);
-            return Resources.Load(ICON_FILE_PATH + iconName) as Sprite;
+            return Resources.Load<Sprite>(ICON_FILE_PATH + iconName);
         }
 
         public string GetTypeName() {
             switch(type) {
                 case ItemType.COMSUMABLE:
-                    return "消費アイテム";
+                    return "消耗品";
                 case ItemType.EQUIPMENT:
-                    return "装備アイテム";
+                    return "裝備";
                 case ItemType.QUEST:
-                    return "任務アイテム";
+                    return "任務道具";
                 default: return "";
             }
         }
@@ -85,5 +87,7 @@ namespace SoulBreeze {
             }
             return false;
         }
+
+        public abstract void OnUse(InventoryHolder user);
      }
 }

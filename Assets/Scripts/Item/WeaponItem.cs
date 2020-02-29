@@ -15,9 +15,9 @@ namespace SoulBreeze {
             if(registeredWeapons == null) {
                 registeredWeapons = new List<WeaponItem>(1024);
             }
-            registeredWeapons[ID_ELLEN_STAFF] = 
+            registeredWeapons.Add(
                 new WeaponItem("艾倫的手杖", ItemType.EQUIPMENT, ICON_STAFF, "艾倫的手杖", "泛著藍光的手杖。", 
-                    "", 10);
+                    "EllenStaff", 10));
             //TODO: register more weapon.
         }
 
@@ -26,31 +26,43 @@ namespace SoulBreeze {
         }
 
         public string objectAddress;
-        private GameObject weaponObject;
+        private GameObject weaponObject = null;
         private bool isLoaded = false;
 
-        private bool isEquipable;
+        private bool isEquipable = true;
         public int atk;
 
         public WeaponItem(string name, ItemType type, int iconID, string nickname, string description)
-         : base(name, type, iconID, nickname, description){
-             this.objectAddress = name;
-             LoadWeaponObject();
-        }
+         : this(name, type, iconID, nickname, description, name, 0) {}
 
         public WeaponItem(string name, ItemType type, int iconID, string nickname, string description, 
             string objPrefPath, int atk)
+         : this(name, type, iconID, nickname, description, objPrefPath, atk, 1) {}
+
+        public WeaponItem(string name, ItemType type, int iconID, string nickname, string description, 
+            string objPrefPath, int atk, int amount)
+         : this(name, type, iconID, nickname, description, objPrefPath, atk, amount, 99) {}
+
+        public WeaponItem(string name, ItemType type, int iconID, string nickname, string description, 
+            string objPrefPath, int atk, int amount, int maxStackSize)
          : base(name, type, iconID, nickname, description) {
                 this.objectAddress = objPrefPath;
                 LoadWeaponObject();
                 this.atk = atk;
+                this.amount = amount;
+                this.maxStackAmount = maxStackSize;
         }
 
         public void LoadWeaponObject() {
             if(weaponObject == null) {
                 // AsyncOperationHandle<GameObject> res;
                 Addressables.LoadAssetAsync<GameObject>(objectAddress).Completed += 
-                    (res=> {weaponObject = res.Result; isLoaded = true;});
+                    (res=> 
+                    {
+                        weaponObject = res.Result;
+                        isLoaded = true;
+                        Debug.Log("Weapon loaded done!\n" + weaponObject.name);
+                    });
             }
         }
 
@@ -62,13 +74,11 @@ namespace SoulBreeze {
             return isEquipable && isLoaded && weaponObject != null;
         }
 
-        // public bool TryEquipeOn() {
-
-        //     return true;
-        // }
-
-        public void OnEquipe() {
-            
+        public override void OnUse(InventoryHolder user) {
+            Equipable equipable = user.GetComponent<Equipable>();
+            if(equipable != null) {
+                equipable.TryEquipe(this);
+            }
         }
 
         public override string GetName() {

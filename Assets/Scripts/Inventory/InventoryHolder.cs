@@ -17,7 +17,7 @@ namespace SoulBreeze {
             get {return _weaponInv;}
         }
 
-        public ArmorInventory _armorInv;
+        private ArmorInventory _armorInv;
         public ArmorInventory armorInventory
         {
             get {return _armorInv;}
@@ -58,7 +58,7 @@ namespace SoulBreeze {
             }else if(item is ArmorItem) {
                 return _armorInv.CanAccept(item);
             }
-            return false;
+            return false; 
         }
 
         public void OnGetRawItem(Item item) {

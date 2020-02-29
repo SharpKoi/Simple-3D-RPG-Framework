@@ -3596,15 +3596,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPref: {fileID: 8932146822454371096, guid: 9e55e7f1c95ed5446a5adaa89cca7c9e,
     type: 3}
-  u_content: {fileID: 0}
+  u_content: {fileID: 692783362}
+  viewer: {fileID: 0}
   slotsDist: 120
   rowLength: 4
+  selectedItemIndex: 0
   panel_bg: {fileID: 66482252}
   magic_ring_img: {fileID: 928268861}
   goddess_img: {fileID: 1236532100}
   sideOptionTags: {fileID: 1377194514}
   itemPreview: {fileID: 373362920}
+  t_itemName: {fileID: 1179418811}
+  t_itemType: {fileID: 430925521}
+  t_itemDetail: {fileID: 1173914217}
+  button_use: {fileID: 529226478}
+  button_lock: {fileID: 649679400}
+  button_abandon: {fileID: 1823683663}
   itemContent: {fileID: 1633892414}
+  weaponInvButton: {fileID: 1749989667}
   optionUI: {fileID: 7616855573738886580}
 --- !u!1 &1173914215
 GameObject:

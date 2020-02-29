@@ -11,5 +11,9 @@ namespace SoulBreeze {
         public override string GetName() {
             return name;
         }
+
+        public override void OnUse(InventoryHolder user) {
+
+        }
     }
 }

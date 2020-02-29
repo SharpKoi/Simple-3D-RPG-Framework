@@ -22,6 +22,8 @@ namespace SoulBreeze {
         public float slotsDist;                         //the distance of any two slots (120)
         public int rowLength;                           //how much slots in one row (4)
 
+        public int selectedItemIndex;
+
         private Camera cam;
         private PostProcessManager postProcessManager;
 
@@ -37,9 +39,13 @@ namespace SoulBreeze {
         [SerializeField] private TMP_Text t_itemName;
         [SerializeField] private TMP_Text t_itemType;
         [SerializeField] private TMP_Text t_itemDetail;
+        [SerializeField] private Button button_use;
+        [SerializeField] private Button button_lock;
+        [SerializeField] private Button button_abandon;
 
         [Header("Item Content")]
         [SerializeField] private GameObject itemContent;
+        [SerializeField] private Button weaponInvButton;
 
         public UIOption optionUI;
 
@@ -62,32 +68,64 @@ namespace SoulBreeze {
             
         }
 
-        public void InitializeGUI() {
+        protected  void InitializeGUI() {
             //set the basic slot requirements
-            int index = -1;
-            int row_num = 100/4;
+            int row_num = Inventory.DEFAULT_SIZE/4;
             for(int i = 0; i < row_num; i++) {
                 for(int j = 0; j < rowLength; j++) {
-                    index ++;
                     GameObject slot = GameObject.Instantiate(slotPref, u_content.transform);
                     Vector2 slotPos = new Vector2(slotsDist * j, - slotsDist * i);
                     slot.GetComponent<RectTransform>().anchoredPosition = slotPos;
 
                     ItemSlot itemSlot = slot.GetComponentInChildren<ItemSlot>();
-                    itemSlot.index = index;
-                    itemSlot.OnSelectEvent.AddListener(() => ShowItemPreview(index));
                     u_itemSlots.Add(itemSlot);
+                    itemSlot.index = u_itemSlots.IndexOf(itemSlot);
+                    itemSlot.OnSelectEvent.AddListener(() => {ShowItemPreview(itemSlot.index); selectedItemIndex = itemSlot.index;});
                 }
             }
+
+            button_use.onClick.AddListener(() => currentInventory.GetItem(selectedItemIndex).OnUse(viewer));
+            weaponInvButton.onClick.AddListener(() => SwitchInventory(viewer.weaponInventory));
+        }
+
+        public void SwitchInventory(Inventory inventory) {
+            DrawItemSlotsFrom(inventory);
+            this.currentInventory = inventory;
+        }
+
+        private GameObject DrawSlotOf(int index) {
+            int whichRow = index / 4 + 1;
+            int rowIndex = index % 4;
+
+            GameObject slot = GameObject.Instantiate(slotPref, u_content.transform);
+            Vector2 slotPos = new Vector2(slotsDist * rowIndex, - slotsDist * whichRow);
+            slot.GetComponent<RectTransform>().anchoredPosition = slotPos;
+            return slot;
+        }
+
+        public void AddNewSlot() {
+            int index = u_itemSlots.Count;
+            GameObject slot = DrawSlotOf(index);
+
+            ItemSlot itemSlot = slot.GetComponentInChildren<ItemSlot>();
+            u_itemSlots.Add(itemSlot);
+            itemSlot.index = u_itemSlots.IndexOf(itemSlot);
+            itemSlot.OnSelectEvent.AddListener(() => {ShowItemPreview(itemSlot.index); selectedItemIndex = itemSlot.index;});
         }
 
         public void DrawItemSlotsFrom(Inventory inventory) {
             List<Item> itemList = inventory.GetItems();
+            Debug.Log(itemList.Count);
             for(int i = 0; i < itemList.Count; i++) {
-                u_itemSlots[i].SetItemIcon(itemList[i].GetIcon());
+                if(i >= u_itemSlots.Count) {
+                    AddNewSlot();
+                }
+                Sprite iconSprite = itemList[i].GetIcon();
+                Debug.Log(iconSprite.name);
+                u_itemSlots[i].SetItemIcon(iconSprite);
                 u_itemSlots[i].SetState(SlotState.NORMAL);
             }
-            currentInventory = inventory;
+            // currentInventory = inventory;
         }
 
         public void ShowItemPreview(int index) {
@@ -95,6 +133,10 @@ namespace SoulBreeze {
             t_itemName.SetText(item.GetName());
             t_itemType.SetText(item.GetTypeName());
             t_itemDetail.SetText(item.description);
+
+            if(item.type == Item.ItemType.EQUIPMENT) {
+                button_use.GetComponentInChildren<TMP_Text>().text = "裝備";
+            }
         }
 
         public GameObject GetGameObject() {
@@ -164,6 +206,10 @@ namespace SoulBreeze {
 
         public void OnQuitButtonClicked() {
             GameManager.Instance().GetUIManager().ReturnBack();
+        }
+
+        public Item GetSelectedItem() {
+            return currentInventory.GetItem(selectedItemIndex);
         }
     }
 }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SoulBreeze {
+    [System.Serializable]
     public abstract class Inventory {
+
+        public static readonly int DEFAULT_SIZE = 100;
 
         private List<Item> itemList = new List<Item>();
         public int maxSlots;
@@ -57,9 +60,11 @@ namespace SoulBreeze {
 
             while(item.amount > 0) {
                 Item itemStack = item.DeepCopyByExpressionTree();
+                
                 itemStack.amount = Mathf.Min(item.amount, item.maxStackAmount);
+                // itemStack.amount = item.amount;
                 item.amount -= itemStack.amount;
-                itemList.Add(item);
+                itemList.Add(item); //add item stack
             }
         }
     }
