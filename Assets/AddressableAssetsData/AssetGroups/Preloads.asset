@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Preloads
+  m_EditorClassIdentifier: 
+  m_GroupName: Preloads
+  m_Data:
+    m_SerializedData: []
+  m_GUID: be8dfb9f798da654f9fb13fd7539bfd4
+  m_SerializeEntries:
+  - m_GUID: 21128b6c77b2eae49b2f7824dc849661
+    m_Address: Staff_Swish03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_GUID: 336bfb07dbbd8da4798be16b521f6235
+    m_Address: Staff_Swish04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_GUID: 483c43b7ae8d32447a9723860a80e054
+    m_Address: EllenStaff
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_GUID: a5139cee6663eeb4fbb5e106dbd6aabc
+    m_Address: Staff_Swish01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_GUID: bc2bf3b69b87fcd439e6744a558c5b6a
+    m_Address: Staff_Swish02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 538035193595ea34d9957012bc3a520c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 82c9d5c70455e2e4f8ccc913f280b939, type: 2}
+    - {fileID: 11400000, guid: ccb94db479871aa40b63653c2c6b4eb5, type: 2}

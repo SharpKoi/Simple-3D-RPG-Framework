@@ -16,11 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 7e99a8b13d770404b83a183218348184
-  m_SerializeEntries:
-  - m_GUID: 483c43b7ae8d32447a9723860a80e054
-    m_Address: Assets/Prefabs/Weapon/EllenStaff.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 538035193595ea34d9957012bc3a520c, type: 2}
   m_SchemaSet:

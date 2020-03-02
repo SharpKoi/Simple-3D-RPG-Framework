@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace SoulBreeze {
     public class GameManager : MonoBehaviour
@@ -12,6 +13,9 @@ namespace SoulBreeze {
         }
 
         bool cursorLocked = true;
+        public bool inputBlock;
+
+        public AssetReference[] preloadObjects; 
 
         [Header("Manager")]
         [SerializeField] private AudioManager audioManager = null;
@@ -25,6 +29,9 @@ namespace SoulBreeze {
         void Awake() {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            foreach(AssetReference asset in preloadObjects) {
+                asset.LoadAssetAsync<GameObject>();
+            }
             Item.Init();
         }
 

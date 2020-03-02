@@ -216,6 +216,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6444fe3e8d90d2a42b98d03827a70728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputBlock: 0
+  preloadObjects:
+  - m_AssetGUID: 483c43b7ae8d32447a9723860a80e054
+    m_SubObjectName: 
+  - m_AssetGUID: a5139cee6663eeb4fbb5e106dbd6aabc
+    m_SubObjectName: StaffSwish01
+  - m_AssetGUID: bc2bf3b69b87fcd439e6744a558c5b6a
+    m_SubObjectName: StaffSwish02
+  - m_AssetGUID: 21128b6c77b2eae49b2f7824dc849661
+    m_SubObjectName: StaffSwish04
+  - m_AssetGUID: 336bfb07dbbd8da4798be16b521f6235
+    m_SubObjectName: StaffSwish03
   audioManager: {fileID: 2642049150543641826}
   uiManager: {fileID: 0}
   postProcessManager: {fileID: 0}

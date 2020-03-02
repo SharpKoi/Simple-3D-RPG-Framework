@@ -18,6 +18,8 @@ namespace SoulBreeze {
         public int attackValue;         //the ATK value of the weapon
         public bool isInAttack;         //whether the weapon is in attack
         public LayerMask targetLayers;  //in which layer the weapon can hurt
+
+        public GameObject[] swishEffects;
         public AttackPoint[] attackPoints = new AttackPoint[0];         //the valid attack points
         private Vector3[] previousPoints = null;                        //the positions of the attack points in the last frame
         private RaycastHit[] raycastHitCache = new RaycastHit[32];      //the cache of the hits that attack trail go through

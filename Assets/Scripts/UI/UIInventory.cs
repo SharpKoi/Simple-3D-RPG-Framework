@@ -115,15 +115,17 @@ namespace SoulBreeze {
 
         public void DrawItemSlotsFrom(Inventory inventory) {
             List<Item> itemList = inventory.GetItems();
-            Debug.Log(itemList.Count);
             for(int i = 0; i < itemList.Count; i++) {
                 if(i >= u_itemSlots.Count) {
                     AddNewSlot();
                 }
-                Sprite iconSprite = itemList[i].GetIcon();
-                Debug.Log(iconSprite.name);
-                u_itemSlots[i].SetItemIcon(iconSprite);
-                u_itemSlots[i].SetState(SlotState.NORMAL);
+                ItemSlot slot = u_itemSlots[i];
+                Item item = itemList[i];
+                Sprite iconSprite = item.GetIcon();
+
+                slot.SetItemIcon(iconSprite);
+                slot.SetAmount(item.amount);
+                slot.SetState(SlotState.NORMAL);
             }
             // currentInventory = inventory;
         }

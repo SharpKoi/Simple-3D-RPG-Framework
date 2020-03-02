@@ -347,6 +347,11 @@ MonoBehaviour:
   targetLayers:
     serializedVersion: 2
     m_Bits: 256
+  swishEffects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   attackPoints:
   - point: {fileID: 226556689482960380}
     radius: 0.4

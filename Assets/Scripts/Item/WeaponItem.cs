@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace SoulBreeze {
     public class WeaponItem : Item {
@@ -51,6 +53,11 @@ namespace SoulBreeze {
                 this.atk = atk;
                 this.amount = amount;
                 this.maxStackAmount = maxStackSize;
+        }
+
+        public void OnWeaponObjectLoaded(AsyncOperationHandle<GameObject> res) {
+            weaponObject = res.Result;
+            isLoaded = true;
         }
 
         public void LoadWeaponObject() {

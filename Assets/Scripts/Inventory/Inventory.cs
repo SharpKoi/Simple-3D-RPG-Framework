@@ -60,11 +60,13 @@ namespace SoulBreeze {
 
             while(item.amount > 0) {
                 Item itemStack = item.DeepCopyByExpressionTree();
-                
+                if(item is WeaponItem) {
+                    WeaponItem weaponStack = itemStack as WeaponItem;
+                    weaponStack.LoadWeaponObject();
+                }
                 itemStack.amount = Mathf.Min(item.amount, item.maxStackAmount);
-                // itemStack.amount = item.amount;
                 item.amount -= itemStack.amount;
-                itemList.Add(item); //add item stack
+                itemList.Add(itemStack); 
             }
         }
     }

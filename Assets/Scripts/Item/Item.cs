@@ -35,7 +35,7 @@ namespace SoulBreeze {
 
         public CompoundTag metadata;
 
-        public Item(string name, ItemType type, int iconID, string nickname, string description){
+        protected Item(string name, ItemType type, int iconID, string nickname, string description){
             this.name = name;
             this.type = type;
             this.iconID = iconID;
@@ -71,7 +71,7 @@ namespace SoulBreeze {
                     return "裝備";
                 case ItemType.QUEST:
                     return "任務道具";
-                default: return "";
+                default: return "一般道具";
             }
         }
 

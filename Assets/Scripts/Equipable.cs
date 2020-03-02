@@ -26,8 +26,13 @@ namespace SoulBreeze {
             if(equipment is WeaponItem) {
                 WeaponItem weaponItem = equipment as WeaponItem;
                 GameObject weaponObj = weaponItem.GetWeaponObject();
+
                 _weapon = GameObject.Instantiate(weaponObj, equipPosition);
                 _weapon.transform.localPosition = offset;
+                
+                MeleeWeapon  melee = _weapon.GetComponent<MeleeWeapon>();
+                melee.swishEffects = new GameObject[4];
+                
             }
             isEquipped = true;
             return true;

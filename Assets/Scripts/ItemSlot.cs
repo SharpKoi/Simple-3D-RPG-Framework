@@ -44,8 +44,8 @@ namespace SoulBreeze {
             img_itemIcon.sprite = icon;
         }
 
-        public void Test() {
-            Debug.Log("Test");
+        public void SetAmount(int amount) {
+            t_amount.text = amount.ToString();
         }
 
         public void OnDeselect(BaseEventData eventData) {
